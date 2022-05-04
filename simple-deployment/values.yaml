@@ -1,8 +1,8 @@
-# Default values for etcd-backup.
+# Default values for simple-deployment.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: nginx

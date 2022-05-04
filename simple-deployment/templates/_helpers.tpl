@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "etcd-backup.name" -}}
+{{- define "simple-deployment.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "etcd-backup.fullname" -}}
+{{- define "simple-deployment.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "etcd-backup.chart" -}}
+{{- define "simple-deployment.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "etcd-backup.labels" -}}
-helm.sh/chart: {{ include "etcd-backup.chart" . }}
-{{ include "etcd-backup.selectorLabels" . }}
+{{- define "simple-deployment.labels" -}}
+helm.sh/chart: {{ include "simple-deployment.chart" . }}
+{{ include "simple-deployment.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "etcd-backup.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "etcd-backup.name" . }}
+{{- define "simple-deployment.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "simple-deployment.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "etcd-backup.serviceAccountName" -}}
+{{- define "simple-deployment.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "etcd-backup.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "simple-deployment.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
